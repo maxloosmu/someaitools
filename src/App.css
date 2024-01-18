@@ -2,20 +2,14 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.smaller-logo {
+  width: 10%;
+  height: auto;
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,15 +18,32 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.file-upload-area {
+  border: 2px dashed #ccc;
+  height: 150px;
+  margin: 20px;
+  padding: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.summary-area {
+  border: 2px solid #ccc;
+  margin: 20px;
+  padding: 20px;
+  height: 400px; /* Adjust based on your needs */
+  overflow-y: auto;
+}
+
+textarea {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+button, 
+input {
+  padding: 10px;
+}
+
+.file-upload-area.drag-over {
+  background-color: lightblue; /* Or any other light blue shade you prefer */
 }

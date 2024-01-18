@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+## Deployment
+### Start Flask backend
+- In the project directory:
+```
+python3 -m venv myenv
+sudo apt-get install libpq-dev python3-dev
+source myenv/bin/activate
+pip install -r requirements.txt
+python3 server.py
+```
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Start React frontend
+- https://learn.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl
+- In the project directory:
+```
+source ~/.bashrc
+npx create-react-app someaitools
+npm install
+npm start
+```
 
-## Available Scripts
+### Start PostgreSQL database
+```
+sudo -i -u postgres
+psql -U postgres -d postgres
+ALTER ROLE maxloo CREATEDB;
+\du
 
-In the project directory, you can run:
+psql -U maxloo -d postgres
+CREATE DATABASE someaitools
+\connect someaitools
+psql -U maxloo -d someaitools
+sudo -i -u postgres
+psql
+GRANT ALL PRIVILEGES ON DATABASE someaitools TO maxloo;
+ALTER USER maxloo WITH PASSWORD '4444';
 
-### `npm start`
+\i ./db/init_db.sql
+sudo service postgresql restart
+sudo service postgresql status
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+DELETE FROM users;
+COMMIT;
+SELECT * FROM users;
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Start MariaDB database
+- https://kontext.tech/article/1031/install-mariadb-server-on-wsl
+- https://mariadb.com/resources/blog/using-sqlalchemy-with-mariadb-connector-python-part-1/
+- https://mariadb.com/docs/server/connect/programming-languages/c/install/
+- https://stackoverflow.com/questions/51603067/installing-connector-c-for-mariadb
+- https://cloud.mariadb.com/csm?id=my_customer_token
 
-### `npm test`
+sudo /etc/init.d/mariadb start
+sudo /etc/init.d/mariadb status
+sudo mysql_secure_installation
+sudo mariadb
+CREATE USER 'maxloo'@'localhost' IDENTIFIED BY '4444';
+GRANT ALL PRIVILEGES ON *.* TO 'maxloo'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+SELECT user, host, plugin FROM mysql.user;
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+mariadb -u maxloo -p
+CREATE DATABASE someaitools;
+USE someaitools;
+SOURCE /home/maxloo/src/someaitools/pdf/db/init_db.sql;
+SHOW DATABASES
+SHOW TABLES;
+DESCRIBE users;

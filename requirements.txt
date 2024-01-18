@@ -1,0 +1,11 @@
+openai
+pypdf
+tiktoken
+langchain
+python-dotenv
+flask
+flask-cors
+Flask-SQLAlchemy
+Flask-Mail
+psycopg2 
+

@@ -1,0 +1,4 @@
+Welcome to the Node.js packaged by Bitnami
+
+Please refer to https://docs.bitnami.com/ for more details.
+
